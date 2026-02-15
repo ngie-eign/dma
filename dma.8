@@ -49,9 +49,12 @@
 .Op Ar recipient ...
 .Sh DESCRIPTION
 .Nm
-is a small Mail Transport Agent (MTA), designed for home and office use.
-It accepts mails from locally installed Mail User Agents (MUA) and
-delivers the mails either locally or to a remote destination.
+is a small Mail Transport Agent
+.Pq MTA ,
+designed for home and office use.
+It accepts mails from locally installed Mail User Agents
+.Pq MUA
+and delivers the mails either locally or to a remote destination.
 Remote delivery includes several features like TLS/SSL support and SMTP
 authentication.
 .Pp
@@ -87,7 +90,9 @@ s are ignored.
 Do not run in the background.
 Useful for debugging.
 .It Fl f Ar sender
-Set sender address (envelope-from) to
+Set sender address
+.Pq envelope-from
+to
 .Ar sender .
 This overrides the value of the
 .Ev EMAIL
@@ -119,13 +124,13 @@ Same as
 Obtain recipient addresses from the message header.
 .Nm
 will parse the
-.Li To: ,
-.Li Cc: ,
+.Li To:\& ,
+.Li Cc:\& ,
 and
-.Li Bcc:
+.Li Bcc:\&
 headers.
 The
-.Li Bcc:
+.Li Bcc:\&
 header will be removed independent of whether
 .Fl t
 is specified or not.
@@ -168,22 +173,22 @@ can be configured in
 .Pa dma.conf .
 .Bl -tag -width 4n
 .It Ic SMARTHOST Xo
-(string, default=empty)
+.Pq string, default=empty
 .Xc
 If you want to send outgoing mails via a smarthost, set this variable to
 your smarthosts address.
 .It Ic PORT Xo
-(numeric, default=25)
+.Pq numeric, default=25
 .Xc
 Use this port to deliver remote emails.
 Only useful together with the
 .Sq SMARTHOST
 option, because
 .Nm
-will deliver all mails to this port, regardless of whether a smarthost is set
-or not.
+will deliver all mails to this port,
+regardless of whether a smarthost is set or not.
 .It Ic ALIASES Xo
-(string, default=/etc/aliases)
+.Pq string, default= Ns Pa /etc/aliases
 .Xc
 Path to the local aliases file.
 Just stick with the default.
@@ -204,46 +209,46 @@ matching alias is found.
 Use the catch-all alias only if you do not want any local mail to be
 delivered.
 .It Ic SPOOLDIR Xo
-(string, default=/var/spool/dma)
+.Pq string, default= Ns Pa /var/spool/dma
 .Xc
 Path to
 .Nm Ap s
 spool directory.
 Just stick with the default.
 .It Ic AUTHPATH Xo
-(string, default=not set)
+.Pq string, default=not set
 .Xc
 Path to the
 .Sq auth.conf
 file.
 .It Ic SECURETRANSFER Xo
-(boolean, default=commented)
+.Pq boolean, default=commented
 .Xc
 Uncomment if you want TLS/SSL secured transfer.
 .It Ic STARTTLS Xo
-(boolean, default=commented)
+.Pq boolean, default=commented
 .Xc
 Uncomment if you want to use STARTTLS.
 Only useful together with
 .Sq SECURETRANSFER .
 .It Ic VERIFYCERT Xo
-(boolean, default=commented)
+.Pq boolean, default=commented
 .Xc
 Verify the server certificate against the CA.
 Only makes sense if you use a smarthost.
 .It Ic FINGERPRINT Xo
-(string, default=empty)
+.Pq string, default=empty
 .Xc
 Pin the server certificate by specifying its SHA256 fingerprint.
 Only makes sense if you use a smarthost.
 .It Ic OPPORTUNISTIC_TLS Xo
-(boolean, default=commented)
+.Pq boolean, default=commented
 .Xc
 Uncomment if you want to allow the STARTTLS negotiation to fail.
 Most useful when
 .Nm
-is used without a smarthost, delivering remote messages directly to
-the outside mail exchangers; in opportunistic TLS mode, the connection will
+is used without a smarthost, delivering remote messages directly to the
+outside mail exchangers; in opportunistic TLS mode, the connection will
 be encrypted if the remote server supports STARTTLS, but an unencrypted
 delivery will still be made if the negotiation fails.
 Only useful together with
@@ -251,11 +256,11 @@ Only useful together with
 and
 .Sq STARTTLS .
 .It Ic CERTFILE Xo
-(string, default=empty)
+.Pq string, default=empty
 .Xc
 Path to your SSL certificate file.
 .It Ic SECURE Xo
-(boolean, default=commented)
+.Pq boolean, default=commented
 .Xc
 Uncomment this entry and change it to
 .Sq INSECURE
@@ -263,7 +268,7 @@ to use plain text SMTP login over an insecure connection.
 You have to rename this variable manually to prevent that you send your
 password accidentally over an insecure connection.
 .It Ic DEFER Xo
-(boolean, default=commented)
+.Pq boolean, default=commented
 .Xc
 Uncomment if you want that
 .Nm
@@ -273,12 +278,12 @@ You have to flush your mail queue manually with the
 option.
 This option is handy if you are behind a dialup line.
 .It Ic FULLBOUNCE Xo
-(boolean, default=commented)
+.Pq boolean, default=commented
 .Xc
 Uncomment if you want the bounce message to include the complete original
 message, not just the headers.
 .It Ic MAILNAME Xo
-(string, default=empty)
+.Pq string, default=empty
 .Xc
 The internet hostname
 .Nm
@@ -291,7 +296,7 @@ If
 is an absolute path to a file, the first line of this file will be used
 as the hostname.
 .It Ic MASQUERADE Xo
-(string, default=empty)
+.Pq string, default=empty
 .Xc
 Masquerade the envelope-from addresses with this address/hostname.
 Use this setting if mails are not accepted by destination mail servers
@@ -318,10 +323,9 @@ will send all mails as
 setting it to
 .Ql percolator
 will send all mails as
-.Ql Sm off Va username @percolator .
-.Sm on
+.Ql Va username Ns @percolator .
 .It Ic NULLCLIENT Xo
-(boolean, default=commented)
+.Pq boolean, default=commented
 .Xc
 Bypass aliases and local delivery, and instead forward all mails to
 the defined
@@ -338,7 +342,8 @@ can be influenced by some environment variables.
 .Bl -tag -width 4n
 .It Ev EMAIL Xo
 .Xc
-Used to set the sender address (envelope-from).
+Used to set the sender address
+.Pq envelope-from .
 Use a plain address, in the form of
 .Li user@example.com .
 This value will be overridden when the
